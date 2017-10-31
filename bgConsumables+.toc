@@ -1,0 +1,5 @@
+## Interface: 40200
+## Title: BGConsumables+
+## Notes: Script methods for using BG specific consumables (plus a few extras).
+## Version: 1.0
+bgConsumables+.lua
