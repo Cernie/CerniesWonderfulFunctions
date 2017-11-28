@@ -45,8 +45,8 @@ function UseManaPotion()
 	zone = GetRealZoneText();
 	msg = nil;
 	--based on battleground zone use 'Superior Mana Draught'
-	if (zone == "Warsong Gulch" or zone == "Alterac Valley" or zone == "Arathi Basin") then
-		if(isInBag('Superior Mana Draught') == true) then use('Superior Mana Draught'); msg = "Superior Mana Draught"; end;
+	if (isInBag('Superior Mana Draught') == true and (zone == "Warsong Gulch" or zone == "Alterac Valley" or zone == "Arathi Basin")) then
+		use('Superior Mana Draught'); msg = "Superior Mana Draught";
 
 	--otherwise start with 'Combat Mana Potion'
 	--then 'Major Mana Potion', 'Superior Mana Potion', 'Greater Mana Potion', 'Mana Potion', 'Lesser Mana Potion'
@@ -68,8 +68,8 @@ function UseHealthPotion()
 	zone = GetRealZoneText();
 	msg = nil;
 	--based on battleground zone use 'Surperior Healing Draught'
-	if (zone == "Warsong Gulch" or zone == "Alterac Valley" or zone == "Arathi Basin") then
-		if(isInBag('Superior Healing Draught') == true) then use('Superior Healing Draught'); msg = "Superior Healing Draught" end;
+	if (isInBag('Superior Healing Draught') == true and (zone == "Warsong Gulch" or zone == "Alterac Valley" or zone == "Arathi Basin")) then
+		use('Superior Healing Draught'); msg = "Superior Healing Draught";
 
 	--otherwise start with 'Combat Healing Potion'	
 	--then 'Major Healing Potion', 'Surperior Healing Potion', 'Greater Healing Potion', 'Healing Potion', 'Lesser Healing Potion'
@@ -119,10 +119,24 @@ function getBuffTextures()
 	g = GetPlayerBuff;
 	while not(g(i) == -1)
 		do
-			buffName = split(GetPlayerBuffTexture(g(i)), "Icons\\");
+			buffName = string.split(GetPlayerBuffTexture(g(i)), "Icons\\");
 			DEFAULT_CHAT_FRAME:AddMessage(""..buffName[2].."");
 		i=i+1 
 	end;
 end;
+
+--Function to split a string
+function string:split(delimiter)
+  local result = { }
+  local from  = 1
+  local delim_from, delim_to = string.find( self, delimiter, from  )
+  while delim_from do
+    table.insert( result, string.sub( self, from , delim_from-1 ) )
+    from  = delim_to + 1
+    delim_from, delim_to = string.find( self, delimiter, from  )
+  end
+  table.insert( result, string.sub( self, from  ) )
+  return result
+end
 
 end)

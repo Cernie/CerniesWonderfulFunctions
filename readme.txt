@@ -7,6 +7,7 @@
 ###############################
         Version History
 ###############################
+- v1.1 Fixed an issue when attempting to use health/mana potions in BGs without Superior <type> Draught in the player's bags. Fixed an unintended addon dependency.
 - v1.0 Initial release
 
 
