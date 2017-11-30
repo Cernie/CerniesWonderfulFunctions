@@ -10,6 +10,7 @@ Vanilla WoW addon for PvP items.
 ###############################
         Version History
 ###############################
+- v1.2 Added a Nom function for non-mana using classes to use. Updated UI version so BGConsumables+ does not appear outdated.
 - v1.1 Fixed an issue when attempting to use health/mana potions in BGs without Superior <type> Draught in the player's bags. Fixed an unintended addon dependency.
 - v1.0 Initial release
 
@@ -83,6 +84,11 @@ function described below. The most common texture for drink is 'INV_Drink_07' wh
 'INV_Misc_Fork&Knife'. The water and food parameters are the names of the items the player wants to use.
 For example, the following macro command:
 /script Nom('INV_Drink_07', 'INV_Misc_Fork&Knife', 'Conjured Sparkling Water', 'Conjured Sweet Roll')
+
+- Nom(eatTexture, food)
+The non-mana using class version of the above Nom function.
+For example, the following macro command:
+/script Nom('INV_Misc_Fork&Knife', 'Conjured Sweet Roll')
 
 - getBuffTextures()
 Helper function for a user to determine buff texture names for use with function Nom(drinkTexture, eatTexture, water, food). 
