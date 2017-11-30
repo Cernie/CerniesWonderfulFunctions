@@ -40,6 +40,11 @@ function Nom(drinkTexture, eatTexture, water, food)
 	
 end;
 
+--One action for eating for non mana using classes
+function Nom(eatTexture, food)
+	if (isBuffTextureActive(eatTexture) == false and isInBag(food) == true) then use(food); end;
+end;
+
 --One action to use a Mana potion based on location and item availability
 function UseManaPotion()
 	zone = GetRealZoneText();
