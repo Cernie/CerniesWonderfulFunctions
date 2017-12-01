@@ -88,7 +88,7 @@ For example, the following macro command:
 - NomFood(eatTexture, food)
 The non-mana using class version of the above Nom function.
 For example, the following macro command:
-/script Nom('INV_Misc_Fork&Knife', 'Conjured Sweet Roll')
+/script NomFood('INV_Misc_Fork&Knife', 'Conjured Sweet Roll')
 
 - getBuffTextures()
 Helper function for a user to determine buff texture names for use with function Nom(drinkTexture, eatTexture, water, food). 
