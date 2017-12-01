@@ -85,7 +85,7 @@ function described below. The most common texture for drink is 'INV_Drink_07' wh
 For example, the following macro command:
 /script Nom('INV_Drink_07', 'INV_Misc_Fork&Knife', 'Conjured Sparkling Water', 'Conjured Sweet Roll')
 
-- Nom(eatTexture, food)
+- NomFood(eatTexture, food)
 The non-mana using class version of the above Nom function.
 For example, the following macro command:
 /script Nom('INV_Misc_Fork&Knife', 'Conjured Sweet Roll')
