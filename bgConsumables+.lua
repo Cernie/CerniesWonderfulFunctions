@@ -62,6 +62,7 @@ function UseManaPotion()
 		elseif(isInBag('Greater Mana Potion') == true) then use('Greater Mana Potion');  msg = "Greater Mana Potion";
 		elseif(isInBag('Mana Potion') == true) then use('Mana Potion');  msg = "Mana Potion";
 		elseif(isInBag('Lesser Mana Potion') == true) then use('Lesser Mana Potion');  msg = "Lesser Mana Potion";
+		elseif(isInBag('Minor Mana Potion') == true) then use('Minor Mana Potion');  msg = "Minor Mana Potion";
 		else msg = "Nothing"; end;
 	end;
 	
@@ -85,6 +86,7 @@ function UseHealthPotion()
 		elseif(isInBag('Greater Healing Potion') == true) then use('Greater Healing Potion'); msg = "Greater Healing Potion";
 		elseif(isInBag('Healing Potion') == true) then use('Healing Potion'); msg = "Healing Potion";
 		elseif(isInBag('Lesser Healing Potion') == true) then use('Lesser Healing Potion'); msg = "Lesser Healing Potion";
+		elseif(isInBag('Minor Healing Potion') == true) then use('Minor Healing Potion'); msg = "Minor Healing Potion";
 		else msg = "Nothing"; end;
 	end;
 	
@@ -94,11 +96,21 @@ end;
 --Helper function to determine if an item is in the player's bags
 function isInBag(itemName)
 found = false;
+name2 = nil;
+index1 = nil;
+index2 = nil;
+bracketStart = "|h";
+bracketEnd = "]";
 for bag = 0, 4, 1
 	do 
 		for slot = 1, GetContainerNumSlots(bag), 1
 			do local name = GetContainerItemLink(bag,slot)
-			if name and string.find(name, itemName) then found = true; break; end;
+			if name and string.find(name, itemName) then
+				index1 = string.find(name, bracketStart);
+				index2 = string.find(name, bracketEnd);
+				name2 = string.sub(name, index1 + 3, index2 - 1);
+				if string.find(name2, itemName) == 1 then found = true; break; end;
+			end;
 		end;
 	end;
 return found;	
