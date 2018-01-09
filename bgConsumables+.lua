@@ -93,27 +93,81 @@ function UseHealthPotion()
 	DEFAULT_CHAT_FRAME:AddMessage("BGConsumables+: "..msg.." used!");
 end;
 
+--Uses available Mana Gem
+function UseManaGem()
+	msg = "Nothing";
+	gem = {"Mana Ruby", "Mana Citrine", "Mana Jade", "Mana Agate"};
+	for i=1, 4 do
+		if(isInBag(gem[i]) == true) then use(gem[i]); msg = gem[i]; break; end;
+	end;
+	DEFAULT_CHAT_FRAME:AddMessage("BGConsumables+: "..msg.." used!");
+end;
+
+--Uses available Healthstone
+function UseHealthstone()
+	msg = "Nothing";
+	healthstone = {"Major Healthstone", "Greater Healthstone", "Healthstone", "Lesser Healthstone", "Minor Healthstone"};
+	for i=1, 5 do
+		if(isInBag(healthstone[i]) == true) then use(healthstone[i]); msg = healthstone[i]; break; end;
+	end;
+	DEFAULT_CHAT_FRAME:AddMessage("BGConsumables+: "..msg.." used!");
+end;
+
+--Decide which spell to cast based on Clearcast proc
+function MageDPM(spell1, spell2)
+   texture = "Spell_Shadow_ManaBurn";
+
+   if(isBuffTextureActive(texture)) then SpellStopCasting(); CastSpellByName(spell1);
+
+   else  CastSpellByName(spell2); end;
+
+end;
+
+--Equip Fishing pole or begin fishing if a pole is equipped
+function Fish(pole)
+	mainHandLink = GetInventoryItemLink("player", GetInventorySlotInfo("MainHandSlot"));
+	mainHandName = getItemName(mainHandLink);
+	
+	if (mainHandName ~= pole and isInBag(pole) == true) then use(pole);
+	else CastSpellByName("Fishing");
+	end;
+end;
+
 --Helper function to determine if an item is in the player's bags
 function isInBag(itemName)
-found = false;
-name2 = nil;
-index1 = nil;
-index2 = nil;
-bracketStart = "|h";
-bracketEnd = "]";
-for bag = 0, 4, 1
-	do 
-		for slot = 1, GetContainerNumSlots(bag), 1
-			do local name = GetContainerItemLink(bag,slot)
-			if name and string.find(name, itemName) then
-				index1 = string.find(name, bracketStart);
-				index2 = string.find(name, bracketEnd);
-				name2 = string.sub(name, index1 + 3, index2 - 1);
-				if string.find(name2, itemName) == 1 then found = true; break; end;
+	found = false;
+	name2 = nil;
+	index1 = nil;
+	index2 = nil;
+	bracketStart = "|h";
+	bracketEnd = "]";
+	for bag = 0, 4, 1
+		do 
+			for slot = 1, GetContainerNumSlots(bag), 1
+				do local name = GetContainerItemLink(bag,slot)
+				if name and string.find(name, itemName) then
+					index1 = string.find(name, bracketStart);
+					index2 = string.find(name, bracketEnd);
+					name2 = string.sub(name, index1 + 3, index2 - 1);
+					if string.find(name2, itemName) == 1 then found = true; break; end;
+				end;
 			end;
 		end;
-	end;
-return found;	
+	return found;	
+end;
+
+--Helper function to get an item name given an item link
+function getItemName(itemLink)
+	name = nil;
+	index1 = nil;
+	index2 = nil;
+	bracketStart = "|h";
+	bracketEnd = "]";
+	
+	index1 = string.find(itemLink, bracketStart);
+	index2 = string.find(itemLink, bracketEnd);
+	name = string.sub(itemLink, index1 + 3, index2 - 1);
+	return name;
 end;
 
 --Helper function to determine if a specific buff texture is active

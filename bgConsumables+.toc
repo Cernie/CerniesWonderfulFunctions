@@ -1,5 +1,6 @@
 ## Interface: 11200
 ## Title: BGConsumables+
 ## Notes: Script methods for using BG specific consumables (plus a few extras).
-## Version: 1.2
+## Dependencies: SuperMacro
+## Version: 1.3
 bgConsumables+.lua

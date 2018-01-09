@@ -7,6 +7,7 @@
 ###############################
         Version History
 ###############################
+- v1.3 Added dependency to SuperMacro. Added functions Fish, UseManaGem, and UseHealthstone. Added helper function to get an item name based on item link.
 - v1.2 Added a Nom function for non-mana using classes to use. Improved health and mana potion functions to include the "Minor" versions. 
 Fixed a bug with the health and mana potion helper function. Updated UI version so BGConsumables+ does not appear outdated.
 - v1.1 Fixed an issue when attempting to use health/mana potions in BGs without Superior <type> Draught in the player's bags. Fixed an unintended addon dependency.
@@ -75,6 +76,16 @@ Order of precedence:
 For example, the following macro command:
 /script UseHealingPotion()
 
+- UseManaGem()
+Uses available Mana Gem.
+For example, the following macro command:
+/script UseManaGem()
+
+- UseHealthstone()
+Uses available Healthstone.
+For example, the following macro command;
+/script UseHealthstone()
+
 - Nom(drinkTexture, eatTexture, water, food)
 One action for drinking and eating, press twice to do both. This function works in and out of PvP Battlegrounds as it uses 
 the player's normal food and drink not specific to a Battleground. It only begins drinking or eating if the player is 
@@ -96,4 +107,9 @@ This function returns a list of each buff texture the player currently has activ
 for the texture needed for Nom(drinkTexture, eatTexture, water, food) and run the command below.
 For example:
 /script getBuffTextures()
+
+- Fish(pole)
+One button to equip a fishing pole or begin fishing if a pole is equipped.
+For example, the following macro command:
+/script Fish("Strong Fishing Pole")
 
