@@ -31,7 +31,7 @@ One action for using Battleground specific bandages, or use normal bandages if n
 are based on the item names for each battleground the player wishes to use. If the player is not in a battleground, 
 the function will then use their "normal" bandage.
 For example, the following command (the quotation marks are required):
-/script UseBGBandage('Warsong Gulch Runecloth Bandage', 'Arathi Basin Runecloth Bandage', 'Alterac Heavy Runecloth Bandage', 'Heavy Runecloth Bandage')
+<code>/script UseBGBandage('Warsong Gulch Runecloth Bandage', 'Arathi Basin Runecloth Bandage', 'Alterac Heavy Runecloth Bandage', 'Heavy Runecloth Bandage')</code>
 
 - UseBGBiscuit(wg, ab, av)
 One action for using Battleground specific biscuits (or food or water if the player doesn't want to use the busciuts) instead of 
