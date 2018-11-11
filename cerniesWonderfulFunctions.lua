@@ -59,11 +59,13 @@ end;
 function Nom(water, food)
 	local waterFound, waterBag, waterSlot = isInBag(water);
 	local foodFound, foodBag, foodSlot = isInBag(food);
+	local healthPct = UnitHealth("player") / UnitHealthMax("player");
+	local manaPct = UnitMana("player") / UnitManaMax("player");
 	
 	if(CWF_isPlayerInCombat == false) then
-		if(isBuffNameActive("Drink") == false and waterFound == true) then 
+		if(isBuffNameActive("Drink") == false and waterFound == true and manaPct ~= 1) then 
 			UseContainerItem(waterBag, waterSlot, 1);
-		elseif(isBuffNameActive("Food") == false and foodFound == true) then 
+		elseif(isBuffNameActive("Food") == false and foodFound == true and healthPct ~= 1) then 
 			UseContainerItem(foodBag, foodSlot, 1); 
 		end;
 	end;
@@ -72,9 +74,10 @@ end;
 --One action for eating for non mana using classes
 function NomFood(food)
 	local foodFound, foodBag, foodSlot = isInBag(food);
+	local healthPct = UnitHealth("player") / UnitHealthMax("player");
 	
 	if(CWF_isPlayerInCombat == false) then
-		if (isBuffNameActive("Food") == false and foodFound == true) then 
+		if (isBuffNameActive("Food") == false and foodFound == true and healthPct ~= 1) then 
 			UseContainerItem(foodBag, foodSlot, 1);
 		end;
 	end;
@@ -83,9 +86,10 @@ end;
 --One action for drinking for mana using classes
 function NomWater(water)
 	local waterFound, waterBag, waterSlot = isInBag(water);
+	local manaPct = UnitMana("player") / UnitManaMax("player");
 	
 	if(CWF_isPlayerInCombat == false) then
-		if (isBuffNameActive("Drink") == false and waterFound == true) then 
+		if (isBuffNameActive("Drink") == false and waterFound == true and manaPct ~= 1) then 
 			UseContainerItem(waterBag, waterSlot, 1);
 		end;
 	end;
@@ -212,14 +216,31 @@ function MageDPM(spell1, spell2)
 
 end;
 
---Equip Fishing pole or begin fishing if a pole is equipped
+--Equip Fishing pole or begin fishing if a pole is equipped, holding down any modifier (ctrl, alt, shift) will attach the best available lure
 function Fish(pole)
 	local mainHandLink = GetInventoryItemLink("player", GetInventorySlotInfo("MainHandSlot"));
 	local mainHandName = getItemName(mainHandLink);
 	local pole_hasPole, pole_bag, pole_slot = isInBag(pole);
+	local mod = false;
+	local lures = {"Aquadynamic Fish Attractor", "Flesh Eating Worm", "Bright Baubles", "Nightcrawlers", "Shiny Bauble"};
+	local i = nil;
+	local lureFound, lureBag, lureSlot = nil;
+	
+	if(IsAltKeyDown() or IsShiftKeyDown() or IsControlKeyDown()) then
+		mod = true;
+	end;
 	
 	if(pole_hasPole == true and (mainHandLink == nil or mainHandName ~= pole)) then
 		UseContainerItem(pole_bag, pole_slot, 1);
+	elseif(mod == true) then
+		for i = 1, table.getn(lures), 1 do
+			lureFound, lureBag, lureSlot = isInBag(lures[i]);
+			if(lureFound) then
+				UseContainerItem(lureBag, lureSlot);
+				PickupInventoryItem(16);
+				break;
+			end;
+		end;
 	elseif(mainHandName ~= nil and mainHandName == pole) then
 		CastSpellByName("Fishing");
 	end;

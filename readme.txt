@@ -22,7 +22,7 @@ Unzip the CerniesWonderfulFunctions folder into WoW directory Interface/Addons f
 CerniesWonderfulFunctions is a collection of script functions designed for easy use of PvP Battleground items such as
 bandages, healing/mana potions, and food/drink. In addition, common useful macro functions are available as well. 
 These functions are flexible in what types of items the player wishes to use, 
-meaning PvP'ers of all levels can take full advantage of them. Using the methods is as simple as creating
+meaning players of all levels can take full advantage of them. Using the methods is as simple as creating
 a new macro and writing a single line for /script <functionName>(<parameters>). Directions and examples are found below.
 
 ###############################
@@ -191,7 +191,7 @@ Useful in cases where getSpellId(spell) is not available.
 For example, the following macro command:
 /script if(IsUsableAction(findActionSlot("Ability_Warrior_Revenge")) == 1) then CastSpellByName("Revenge") else CastSpellByName("Heroic Strike") end
 
--isInBag(itemName)
+- isInBag(itemName)
 Function to find a container item based on the item name. Returns boolean (true/false) based on if the item is found, the item's bag id, and the item's slot id.
 Useful in greatly reducing macro length and helps in logic to determine if an item gets used or equipped.
 For example, the following macro command:
@@ -211,7 +211,7 @@ For example:
 /script getBuffTextures()
 
 - Fish(pole)
-One button to equip a fishing pole or begin fishing if a pole is equipped.
+One button to equip a fishing pole or begin fishing if a pole is equipped. Hold a modifier key (ctrl, alt, shift) + button to attach the best available lure in inventory.
 For example, the following macro command:
 /script Fish("Strong Fishing Pole")
 
