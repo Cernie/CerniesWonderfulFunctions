@@ -90,7 +90,7 @@ For example, the following macro command;
 - Nom(water, food)
 One action for drinking and eating, press twice to do both. This function works in and out of PvP Battlegrounds as it uses 
 the player's normal food and drink not specific to a Battleground. It only begins drinking or eating if the player is 
-currently not already drinking or eating, saving them from wasted drink and food. 
+currently not already drinking or eating and not already at full health or mana, saving them from wasted drink and food. 
 The water and food parameters are the names of the items the player wants to use.
 For example, the following macro command:
 
@@ -236,7 +236,7 @@ For example:
 <code>/script getBuffTextures()</code>
 
 - Fish(pole)
-One button to equip a fishing pole or begin fishing if a pole is equipped.
+One button to equip a fishing pole or begin fishing if a pole is equipped. Hold a modifier key (ctrl, alt, shift) + button to attach the best available lure in inventory.
 For example, the following macro command:
 
 <code>/script Fish("Strong Fishing Pole")</code>
