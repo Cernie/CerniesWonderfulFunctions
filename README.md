@@ -5,12 +5,6 @@
 Author: Cernie
 
 
-###############################
-        Version History
-###############################
-- v1.0 Initial release
-
-
 Installation:
 
 
