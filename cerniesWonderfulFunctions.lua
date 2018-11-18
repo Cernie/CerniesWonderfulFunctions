@@ -473,13 +473,18 @@ function MountAQ(normal, aq)
 	end;
 end;
 
---Uses a container item based on item name
-function UseItemInBag(itemName)
+--Uses a container item based on item name, self ensures the item is used on the player
+function UseItemInBag(itemName, self)
 	local found, bag, slot = nil;
+	self = self or 0;
 	
 	found, bag, slot = isInBag(itemName);
 	if(found) then
-		UseContainerItem(bag, slot);
+		if(self == 0) then
+			UseContainerItem(bag, slot);
+		else
+			UseContainerItem(bag, slot, 1);
+		end;
 	end;
 end;
 
@@ -497,6 +502,31 @@ function getSpellId(spell)
 	end
 end;
 
+--Function to determine if spell or ability is on Cooldown, returns true or false
+function isSpellOnCd(spell)
+	local gameTime = GetTime();
+	local start,duration,_ = GetSpellCooldown(getSpellId(spell), BOOKTYPE_SPELL);
+	local cdT = start + duration - gameTime;
+	return (duration ~= 0);
+end;
+
+--Function to determine if a container item is on Cooldown, returns true or false
+function isContainerItemOnCd(itemName)
+	local found, bag, slot = isInBag(itemName);
+	local isOnCd = nil;
+	local start, duration, enabled = nil;
+	
+	if(found) then
+		start, duration, enabled = GetContainerItemCooldown(bag, slot);
+		if(enabled ~= 1 or (enabled == 1 and duration == 0)) then
+			isOnCd = false;
+		elseif(enabled == 1 and duration ~= 0) then
+			isOnCd = true;
+		end;
+	end;
+	return isOnCd;
+end;
+
 --Helper function to find the action slot id based on texture
 function findActionSlot(spellTexture)	
 	for i = 1, 120, 1
@@ -508,6 +538,19 @@ function findActionSlot(spellTexture)
 		end;
 	end;
 	return 0;
+end;
+
+--Function to toggle auto attack "on" or "off"
+function ToggleAutoAttack(switch)
+	if(switch == "off") then
+		if(findAttackActionSlot() ~= 0) then
+			AttackTarget();
+		end;
+	elseif(switch == "on") then
+		if(findAttackActionSlot() == 0) then
+			AttackTarget();
+		end;
+	end;
 end;
 
 --Helper function to determine if an item is in the player's bags, returns boolean of if found and bag and slot ids
