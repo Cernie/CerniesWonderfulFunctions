@@ -203,8 +203,8 @@ For example, the following macro command:
 
 <code>/script MountAQ("Swift White Ram", "Green Qiraji Resonating Crystal");</code>
 
-- UseItemInBag(itemName)
-Function to use an item in the player's container bags based on the name of the item.
+- UseItemInBag(itemName, self)
+Function to use an item in the player's container bags based on the name of the item. The parameter "self" is optional, pass 1 to use the item on yourself.
 For example, the following macro command:
 
 <code>/script UseItemInBag("Iron Grenade");</code>
@@ -216,12 +216,30 @@ For example, the following macro command:
 
 <code>/script local _, duration, _ = GetSpellCooldown(getSpellId("Swiftmend"), BOOKTYPE_SPELL) if(duration == 0) then CastSpellByName("Swiftmend") else DEFAULT_CHAT_FRAME:AddMessage("Swiftmend on cooldown.") end;</code>
 
+- isSpellOnCd(spell)
+Function to find out if a spell is on Cooldown based on the spell name. Returns true or false.
+For example, the following macro command:
+
+<code>/script local cd = isSpellOnCd("Swiftmend") if(not cd) then CastSpellByName("Swiftmend") else DEFAULT_CHAT_FRAME:AddMessage("Swiftmend on cooldown!") end;</code>
+
+- isContainerItemOnCd(itemName)
+Function to find out if a container item is on Cooldown based on the item name. Returns true or false.
+For example, the following macro command:
+
+<code>/script local cd = isContainerItemOnCd("Major Healing Potion") if(not cd) then UseContainerItem("Major Healing Potion") end;</code>
+
 - findActionSlot(spellTexture)
 Function to find an action slot id based on the texture of the button. Returns the id of the action slot or 0 if not found.
 Useful in cases where getSpellId(spell) is not available.
 For example, the following macro command:
 
 <code>/script if(IsUsableAction(findActionSlot("Ability_Warrior_Revenge")) == 1) then CastSpellByName("Revenge") else CastSpellByName("Heroic Strike") end</code>
+
+- ToggleAutoAttack(switch)
+Function to turn auto attack on or off based on what is passed to switch. Switch can be either "on" or "off".
+For example, the following macro command:
+
+<code>/script ToggleAutoAttack("on")</code>
 
 - isInBag(itemName)
 Function to find a container item based on the item name. Returns boolean (true/false) based on if the item is found, the item's bag id, and the item's slot id.
