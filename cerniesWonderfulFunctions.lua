@@ -460,6 +460,29 @@ function ModifyKeyAction(options)
 	end;
 end;
 
+--Uses your normal mount or AQ40 mount if inside AQ40
+function MountAQ(normal, aq)
+	local normalFound, normalBag, normalSlot = isInBag(normal);
+	local aqFound, aqBag, aqSlot = isInBag(aq);
+	local zone = GetRealZoneText();
+	
+	if(zone == "Temple of Ahn'Qiraj" and aqFound == true) then
+		UseContainerItem(aqBag, aqSlot, 1);
+	elseif(normalFound) then
+		UseContainerItem(normalBag, normalSlot, 1);
+	end;
+end;
+
+--Uses a container item based on item name
+function UseItemInBag(itemName)
+	local found, bag, slot = nil;
+	
+	found, bag, slot = isInBag(itemName);
+	if(found) then
+		UseContainerItem(bag, slot);
+	end;
+end;
+
 --returns id of a spell from player's spellbook
 function getSpellId(spell)
 	local i = 1

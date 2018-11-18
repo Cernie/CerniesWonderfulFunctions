@@ -1,6 +1,6 @@
 ## Interface: 11200
 ## Title: CerniesWonderfulFunctions
 ## Notes: Script methods for using specific items and helping players create simple(er) macros.
-## Version: 1.1
+## Version: 1.2
 cerniesWonderfulFunctions.lua
 cerniesWonderfulFunctions.xml
