@@ -196,6 +196,19 @@ For example, the following macro command (requires SuperMacro addon):
 
 <code>/script ModifyKeyAction{unmod = 'CastSpellByName("Fire Blast")', shift = 'CastSpellByName("Fire Blast(Rank 1)")', alt = 'use("Iron Grenade")', ctrl = 'Macro("MountBoots")'};</code>
 
+- MountAQ(normal, aq)
+Function to use a mount based on location. If the player is in AQ40 the function will use the specified AQ40 mount, otherwise the function will use the 
+player's normal mount.
+For example, the following macro command:
+
+<code>/script MountAQ("Swift White Ram", "Green Qiraji Resonating Crystal");</code>
+
+- UseItemInBag(itemName)
+Function to use an item in the player's container bags based on the name of the item.
+For example, the following macro command:
+
+<code>/script UseItemInBag("Iron Grenade");</code>
+
 - getSpellId(spell)
 Function to find the spell id given a spell name, returns the spell id necessary for other API calls. Useful to reduce macro length when getting information
 about a spell from the player's spell book.
