@@ -13,7 +13,7 @@ Unzip the CerniesWonderfulFunctions folder into WoW directory Interface/Addons f
 # Introduction
 
 
-CerniesWonderfulFunctions is a collection of script functions for Vanila World of Warcraft designed for easy use of PvP Battleground items such as bandages, healing/mana potions, and food/drink. In addition, common useful macro functions are available as well. 
+CerniesWonderfulFunctions is a collection of script functions for Vanila World of Warcraft (1.12.1) designed for easy use of PvP Battleground items such as bandages, healing/mana potions, and food/drink. In addition, common useful macro functions are available as well. 
 These functions are flexible in what types of items the player wishes to use, meaning players of all levels can take full advantage of them. Using the methods is as simple as creating a new macro and writing a single line for /script <functionName>(<parameters>). Directions and examples are found below.
 
 # List of Functions
