@@ -5,7 +5,7 @@
 Author: Cernie
 
 
-# Installation:
+# Installation
 
 Unzip the CerniesWonderfulFunctions folder into WoW directory Interface/Addons folder. Remove the -master from the folder name.
 
