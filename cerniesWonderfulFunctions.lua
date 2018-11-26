@@ -574,7 +574,8 @@ function isInBag(itemName)
 						found = true;
 						itemBag = bag;
 						itemSlot = slot;
-					break; end;
+						return found, itemBag, itemSlot;
+					end;
 				end;
 			end;
 		end;
