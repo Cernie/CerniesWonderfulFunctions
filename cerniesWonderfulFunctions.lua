@@ -4,7 +4,7 @@ CWF_isPlayerInCombat = false;
 function CerniesWonderfulFunctions_OnLoad()
 	this:RegisterEvent("PLAYER_LOGIN")
 	this:RegisterEvent("PLAYER_REGEN_DISABLED")
-	this:RegisterEvent("PLAYER_REGEN_ENABLED")	
+	this:RegisterEvent("PLAYER_REGEN_ENABLED")
 	local msg = "Cernie's Wonderful Functions (CWF) loaded. Please see the readme for instructions.";
 	DEFAULT_CHAT_FRAME:AddMessage(msg);
 end;
@@ -266,6 +266,7 @@ function Shapeshift(form, isPowerShift, isGCD)
 	local i = nil;
 	local _, formName, active = nil;
 	local _, shiftCooldown, _ = nil;
+	local isShiftCd = isSpellOnCd(form);
 	
 	_, formName, active = GetShapeshiftFormInfo(1);	
 	_, shiftCooldown, _ = GetSpellCooldown(getSpellId(formName), BOOKTYPE_SPELL);
@@ -282,12 +283,14 @@ function Shapeshift(form, isPowerShift, isGCD)
 	end;
 	--if already in target form and powershift true or in a different form other than target form, cancelshapeshift
 	if((targetFormId == currentForm and isPowerShift == true) or (targetFormId ~= currentForm and currentForm ~= 0)) then
-		if((isGCD == false) or (isGCD == true and shiftCooldown == 0)) then
+		--if((isGCD == false) or (isGCD == true and shiftCooldown == 0)) then
+		if((isGCD == false) or (isGCD == true and not isShiftCd)) then
 			CastShapeshiftForm(currentForm);
 		end;
 	--if in human form, shift into target form
 	elseif(currentForm == 0) then
-		if((isGCD == false) or (isGCD == true and shiftCooldown == 0)) then
+		--if((isGCD == false) or (isGCD == true and shiftCooldown == 0)) then
+		if((isGCD == false) or (isGCD == true and not isShiftCd)) then
 			CastShapeshiftForm(targetFormId);
 		end;
 	end;
@@ -314,7 +317,11 @@ function FeralCharge()
 	if(currentForm == 1) then 
 		CastSpellByName("Feral Charge");
 	else
-		Shapeshift("Bear Form", false, true);
+		if(getSpellId("Dire Bear Form") ~= nil) then
+			Shapeshift("Dire Bear Form", false, true);
+		else
+			Shapeshift("Bear Form", false, true);
+		end;
 	end;
 end;
 
@@ -502,11 +509,14 @@ function getSpellId(spell)
 	end
 end;
 
---Function to determine if spell or ability is on Cooldown, returns true or false
+--Function to determine if spell or ability is on Cooldown, returns true or false. (For experimental mode that checks the cd based on your latency: uncomment the commented lines, and comment out the last return line)
 function isSpellOnCd(spell)
-	local gameTime = GetTime();
+	--local gameTime = GetTime();
+	--local _,_, latency = GetNetStats();
 	local start,duration,_ = GetSpellCooldown(getSpellId(spell), BOOKTYPE_SPELL);
-	local cdT = start + duration - gameTime;
+	--local cdT = start + duration - gameTime;
+	--latency = latency / 1000;
+	--return (duration > latency);
 	return (duration ~= 0);
 end;
 
