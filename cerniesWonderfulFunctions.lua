@@ -511,13 +511,13 @@ end;
 
 --Function to determine if spell or ability is on Cooldown, returns true or false. (For experimental mode that checks the cd based on your latency: uncomment the commented lines, and comment out the last return line)
 function isSpellOnCd(spell)
-	local gameTime = GetTime();
-	local _,_, latency = GetNetStats();
+	--local gameTime = GetTime();
+	--local _,_, latency = GetNetStats();
 	local start,duration,_ = GetSpellCooldown(getSpellId(spell), BOOKTYPE_SPELL);
-	local cdT = start + duration - gameTime;
-	latency = latency / 1000;
-	return (duration > latency);
-	--return (duration ~= 0);
+	--local cdT = start + duration - gameTime;
+	--latency = latency / 1000;
+	--return (duration > latency);
+	return (duration ~= 0);
 end;
 
 --Function to determine if a container item is on Cooldown, returns true or false
