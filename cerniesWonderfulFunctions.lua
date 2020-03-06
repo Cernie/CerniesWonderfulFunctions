@@ -357,23 +357,18 @@ function isBuffNameActive(buff, unit)
 	while not(g(unit, i) == -1 or g(unit, i) == nil)
 		do
 		cernieUsefulFunctionsTooltip:SetOwner( WorldFrame, "ANCHOR_NONE" );
+		cernieUsefulFunctionsTooltip:ClearLines();
 		cernieUsefulFunctionsTooltip:SetUnitBuff(unit, i);
 		textleft1 = getglobal(cernieUsefulFunctionsTooltip:GetName().."TextLeft1");		
 
 		if(textleft1 ~= nil and string.find(string.lower(textleft1:GetText()), string.lower(buff))) then 
 			isBuffActive = true;
 			buffIndex = i - 1;
-			cernieUsefulFunctionsTooltip:Hide();
-			break;
 		end;
 		cernieUsefulFunctionsTooltip:Hide();
 		i=i+1;
 	end;
-	if(buffIndex == -1) then
-		numBuffs = 0;
-	else
-		numBuffs = i;
-	end;
+	numBuffs = i - 1;
 	return isBuffActive, buffIndex, numBuffs;
 end;
 
@@ -390,23 +385,18 @@ function isDebuffNameActive(debuff, unit)
 	while not(g(unit, i) == -1 or g(unit, i) == nil)
 		do
 		cernieUsefulFunctionsTooltip:SetOwner( WorldFrame, "ANCHOR_NONE" );
+		cernieUsefulFunctionsTooltip:ClearLines();
 		cernieUsefulFunctionsTooltip:SetUnitDebuff(unit, i);
 		textleft1 = getglobal(cernieUsefulFunctionsTooltip:GetName().."TextLeft1");		
 
 		if(textleft1 ~= nil and string.find(string.lower(textleft1:GetText()), string.lower(debuff))) then 
 			isDebuffActive = true;
 			debuffIndex = i - 1;
-			cernieUsefulFunctionsTooltip:Hide();
-			break;
 		end;
 		cernieUsefulFunctionsTooltip:Hide();
 		i=i+1;
 	end;
-	if(debuffIndex == -1) then
-		numDebuffs = 0;
-	else
-		numDebuffs = i;
-	end;
+	numDebuffs = i - 1;
 	return isDebuffActive, debuffIndex, numDebuffs;
 end;
 
@@ -511,13 +501,13 @@ end;
 
 --Function to determine if spell or ability is on Cooldown, returns true or false. (For experimental mode that checks the cd based on your latency: uncomment the commented lines, and comment out the last return line)
 function isSpellOnCd(spell)
-	--local gameTime = GetTime();
-	--local _,_, latency = GetNetStats();
+	local gameTime = GetTime();
+	local _,_, latency = GetNetStats();
 	local start,duration,_ = GetSpellCooldown(getSpellId(spell), BOOKTYPE_SPELL);
-	--local cdT = start + duration - gameTime;
-	--latency = latency / 1000;
-	--return (duration > latency);
-	return (duration ~= 0);
+	local cdT = start + duration - gameTime;
+	latency = latency / 1000;
+	return (duration > latency);
+	--return (duration ~= 0);
 end;
 
 --Function to determine if a container item is on Cooldown, returns true or false
@@ -611,15 +601,19 @@ end;
 --Helper function to determine if a specific buff texture is active on the player
 function isBuffTextureActive(texture)
 	local i=0;
+	local buffIndex = -1;
 	local g=GetPlayerBuff;
 	local isBuffActive = false;
 
 	while not(g(i) == -1)
 	do
-		if(strfind(GetPlayerBuffTexture(g(i)), texture)) then isBuffActive = true; end;
+		if(strfind(GetPlayerBuffTexture(g(i)), texture)) then 
+			isBuffActive = true;
+			buffIndex = i;
+		end;
 		i=i+1
 	end;	
-	return isBuffActive;
+	return isBuffActive, buffIndex;
 end;
 
 --Helper function for a user to determine buff texture names
